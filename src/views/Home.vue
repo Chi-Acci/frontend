@@ -1,18 +1,50 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h3>
+      <p>{{topMsg}}</p>
+      <p>{{botMsg}}</p>
+    </h3>
+
+    <div>
+      <router-link :to='createBtnRoute'>
+        <button class='item' type='button'>
+          {{createBtnLabel}}
+        </button>
+      </router-link>
+    </div>
+
+    <div>
+      <router-link :to='joinBtnRoute'>
+        <button class='item' type='button'>
+          {{joinBtnLabel}}
+        </button>
+      </router-link>
+    </div>
   </div>
+
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      topMsg: 'Need help choosing a movie?',
+      botMsg: 'Get a room!',
+      createBtnLabel: 'Create Room',
+      createBtnRoute: 'create',
+      joinBtnLabel: 'Join Room',
+      joinBtnRoute: 'join'
+    }
   }
 }
 </script>
+
+<style scoped>
+.item {
+  min-width: 250px;
+  max-width: 400px;
+  height: 30px;
+  margin: 10px;
+}
+</style>
