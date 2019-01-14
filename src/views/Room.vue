@@ -7,9 +7,9 @@
 <script>
 export default {
   name: 'room',
-  data() {
+  data () {
     return {
-      topMsg: `Room ${this.$route.params.id }`,
+      topMsg: `Room ${this.$route.params.id}`
     }
   }
 }
@@ -17,5 +17,3 @@ export default {
 
 <style>
 </style>
-
-

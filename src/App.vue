@@ -10,7 +10,6 @@
 import appNavigation from '@/components/Navigation'
 import appFooter from '@/components/Footer'
 
-
 export default {
   name: 'app',
   components: {

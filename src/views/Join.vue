@@ -2,6 +2,8 @@
   <div>
     <h3>{{topMsg}}</h3>
 
+    <username/>
+
     <h4>
       {{roomIdLabel}}
       <input v-model='roomId' :placeholder='roomIdPlaceholder' :class='roomIdClass' required>
@@ -16,9 +18,13 @@
 </template>
 
 <script>
+import username from '@/components/Username'
 
 export default {
   name: 'join',
+  components: {
+    username
+  },
   data () {
     return {
       topMsg: 'Join Room',
@@ -34,7 +40,10 @@ export default {
   },
   computed: {
     btnDisabled () {
-      return !this.roomId
+      return !this.username || !this.roomId
+    },
+    username () {
+      return this.$store.getters.G_USERNAME
     }
   },
   watch: {

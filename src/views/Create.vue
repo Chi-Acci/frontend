@@ -2,6 +2,8 @@
   <div>
     <h3>{{topMsg}}</h3>
 
+    <username/>
+
     <h4>
       {{roomIdLabel}}
       <input v-model='roomId' :placeholder='roomIdPlaceholder' :class='roomIdClass' required>
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+import username from '@/components/Username'
+
 const availableMoods = [
   {
     key: 'any',
@@ -35,7 +39,7 @@ const availableMoods = [
     key: 'happy',
     label: 'Happy'
   },
-    {
+  {
     key: 'sad',
     label: 'Sad'
   }
@@ -43,6 +47,9 @@ const availableMoods = [
 
 export default {
   name: 'create',
+  components: {
+    username
+  },
   data () {
     return {
       topMsg: 'Creating Room',
@@ -63,7 +70,10 @@ export default {
   },
   computed: {
     btnDisabled () {
-      return false
+      return !this.username || !this.roomId
+    },
+    username () {
+      return this.$store.getters.G_USERNAME
     }
   },
   watch: {
@@ -77,6 +87,7 @@ export default {
     },
     create () {
       console.log('POST /create:')
+      console.log('username:', this.username)
       console.log('room name:', this.roomId)
       console.log('mood:', this.mood)
       if (this.roomId !== 'abcd') {
