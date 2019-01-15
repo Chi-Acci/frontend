@@ -90,10 +90,5 @@ export default {
 </script>
 
 <style scoped>
-  .container {
-    min-width: 250px;
-    max-width: 400px;
-    height: 100px;
-    margin: auto;
-  }
+
 </style>

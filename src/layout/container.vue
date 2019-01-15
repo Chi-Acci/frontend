@@ -1,13 +1,19 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <app-navigation/>
-    </div>
-    <div class="row">
-        <router-view/>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <app-navigation/>
+      </div>
     </div>
     <div class="row justify-content-center">
-      <app-footer/>
+      <div class="col-md-6">
+        <router-view/>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <app-footer/>
+      </div>
     </div>
   </div>
 </template>

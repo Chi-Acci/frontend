@@ -1,5 +1,5 @@
 <template>
-  <div id="app-nav" class="col-md-12">
+  <div id="app-nav">
     <router-link to='/' class="blacky">Home</router-link>
     {{separator}}
     <router-link to='/about' class="blacky">About</router-link>

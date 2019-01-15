@@ -4,7 +4,7 @@
 
     <ul>
       <li v-for="movie in results" :key="movie.id">
-        {{ movie.title}}
+        {{ movie.title }}
       </li>
     </ul>
   </div>
