@@ -1,24 +1,42 @@
 <template>
-  <div>
-    <h3>{{topMsg}}</h3>
+  <div class="container">
+    <h4>{{topMsg}}</h4>
 
-    <username/>
+    <br>
 
-    <h4>
-      {{roomIdLabel}}
-      <input v-model='roomId' :placeholder='roomIdPlaceholder' :class='roomIdClass' required>
-    </h4>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <username/>
 
-    <div>
-      <button class='item' type='button' :disabled='btnDisabled' v-on:click='join()'>
-        {{joinBtnLabel}}
-      </button>
+        <br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{roomIdLabel}}</span>
+          </div>
+          <input
+            type="text"
+            v-model='roomId'
+            class="form-control"
+            :placeholder="roomIdPlaceholder"
+            required>
+          <!--- :class='roomIdClass'-->
+        </div>
+
+        <br>
+
+        <button class="btn btn-dark" type='button' :disabled='btnDisabled' v-on:click='join()'>
+          {{joinBtnLabel}}
+        </button>
+
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import username from '@/components/Username'
+import username from '@/components/username'
 
 export default {
   name: 'join',
@@ -29,7 +47,7 @@ export default {
     return {
       topMsg: 'Join Room',
 
-      roomIdLabel: 'Name *',
+      roomIdLabel: 'Room Id *',
       roomIdPlaceholder: 'Ask for the room name',
       roomIdClass: 'item',
       roomId: undefined,

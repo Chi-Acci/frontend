@@ -1,34 +1,56 @@
 <template>
   <div class="container">
-    <h3>{{topMsg}}</h3>
+    <h4>{{topMsg}}</h4>
 
-    <username/>
+    <br>
 
-    <h4>
-      {{roomIdLabel}}
-      <input v-model='roomId' :placeholder='roomIdPlaceholder' :class='roomIdClass' required>
-    </h4>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <username/>
 
-    <h4>
-      {{moodLabel}}
-      <select v-model="mood" class='item'>
-        <option disabled :value='undefined'>{{moodPlaceholder}}</option>
-        <option v-for="_mood in availableMoods" :value="_mood.key" :key="_mood.key">
-          {{ _mood.label }}
-        </option>
-      </select>
-    </h4>
+        <br>
 
-    <div>
-      <button class='item' type='button' :disabled='btnDisabled' v-on:click='create()'>
-        {{createBtnLabel}}
-      </button>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">{{roomIdLabel}}</span>
+          </div>
+          <input
+            type="text"
+            v-model='roomId'
+            class="form-control"
+            :placeholder="roomIdPlaceholder"
+            required>
+          <!--- :class='roomIdClass'-->
+        </div>
+
+        <br>
+
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label class="input-group-text">{{moodLabel}}</label>
+          </div>
+          <select v-model="mood" class="custom-select">
+            <option disabled :value='undefined'>{{moodPlaceholder}}</option>
+            <option v-for="_mood in availableMoods" :value="_mood.key" :key="_mood.key">
+              {{ _mood.label }}
+            </option>
+          </select>
+        </div>
+
+        <br>
+
+        <button class="btn btn-dark" type='button' :disabled='btnDisabled' v-on:click='create()'>
+          {{createBtnLabel}}
+        </button>
+
+      </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import username from '@/components/Username'
+import username from '@/components/username'
 
 const availableMoods = [
   {
@@ -54,7 +76,7 @@ export default {
     return {
       topMsg: 'Creating Room',
 
-      roomIdLabel: 'Name *',
+      roomIdLabel: 'Room Id *',
       roomIdPlaceholder: 'Something Unique',
       roomIdClass: 'item',
       roomId: this.randomString(),

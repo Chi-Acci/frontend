@@ -1,8 +1,19 @@
 <template>
-  <h4>
-    {{usernameLabel}}
-    <input v-model='username' :placeholder='usernamePlaceholder' :class='usernameClass' :disabled="disabled" required>
-  </h4>
+
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <span class="input-group-text">{{label}}</span>
+    </div>
+    <input
+      type="text"
+      v-model='username'
+      class="form-control"
+      :placeholder="placeholder"
+      :disabled="disabled"
+      required>
+    <!--- :class='usernameClass'-->
+  </div>
+
 </template>
 
 <script>
@@ -11,10 +22,9 @@ export default {
   name: 'username',
   data () {
     return {
-      usernameLabel: 'Username',
-      usernamePlaceholder: 'Who are you?',
-      usernameClass: 'item',
-      usernameDebounceTimeout: undefined,
+      label: 'Username',
+      placeholder: 'Who are you?',
+      debounceTimeout: undefined,
       debounceTimer: 700, // ms
       disabled: false
     }
@@ -35,8 +45,8 @@ export default {
     },
     debounceUsernameSet (value) {
       this.usernameClass = 'item'
-      clearTimeout(this.usernameDebounceTimeout)
-      this.usernameDebounceTimeout = setTimeout(() => {
+      clearTimeout(this.debounceTimeout)
+      this.debounceTimeout = setTimeout(() => {
         this.disabled = true
         this.$store.commit('M_USERNAME', value)
         this.checkUsername()
