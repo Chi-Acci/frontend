@@ -1,21 +1,21 @@
 <template>
-  <div>
-    <h3>
+  <div class="container">
+    <h4>
       <p>{{topMsg}}</p>
-      <p>{{botMsg}}</p>
-    </h3>
+      <p style="color: yellow">{{botMsg}}</p>
+    </h4>
 
-    <div>
+    <div class="container-fluid">
       <router-link :to='createBtnRoute'>
-        <button class='item' type='button'>
+        <button class="btn btn-dark" type='button'>
           {{createBtnLabel}}
         </button>
       </router-link>
     </div>
-
+    <br>
     <div>
       <router-link :to='joinBtnRoute'>
-        <button class='item' type='button'>
+        <button class="btn btn-dark" type='button'>
           {{joinBtnLabel}}
         </button>
       </router-link>

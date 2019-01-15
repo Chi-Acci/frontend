@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h3>{{topMsg}}</h3>
+  <div class="container">
+    <h4>{{topMsg}}</h4>
     <div class="content">{{contentMsg}}</div>
   </div>
 </template>

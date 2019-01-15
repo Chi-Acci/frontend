@@ -1,21 +1,14 @@
 <template>
   <div id="app">
-    <app-navigation/>
     <router-view/>
-    <app-footer/>
   </div>
 </template>
 
 <script>
-import appNavigation from '@/components/Navigation'
-import appFooter from '@/components/Footer'
+import 'bootstrap/dist/css/bootstrap.css'
 
 export default {
-  name: 'app',
-  components: {
-    appNavigation,
-    appFooter
-  }
+  name: 'app'
 }
 </script>
 

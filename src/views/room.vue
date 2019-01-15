@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       topMsg: `Room ${this.$route.params.id}`,
-      selected: 1
+      selected: 2
     }
   }
 }

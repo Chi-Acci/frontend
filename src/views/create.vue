@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <h3>{{topMsg}}</h3>
 
     <username/>
