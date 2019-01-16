@@ -1,6 +1,9 @@
 <template>
   <div class="container">
     <h4>{{topMsg}}</h4>
+
+    <br>
+
     <div class="row justify-content-center">
       <div class="col-6">
         <ul class="nav nav-tabs nav-justified">
@@ -49,16 +52,13 @@ export default {
 </script>
 
 <style scoped>
-.nav-tabs{
-  color: black !important;
-}
-
-li {
-  padding: 0px;
-}
 
 a.tab.selected{
-  color: red !important;
+  color: yellow !important;
+}
+
+a.tab.not-selected{
+  color: black !important;
 }
 
 </style>
