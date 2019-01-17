@@ -1,11 +1,11 @@
 <template>
-  <div class="container">
+  <div class="container-fluid">
     <h4>{{topMsg}}</h4>
 
     <br>
 
     <div class="row justify-content-center">
-      <div class="col-6">
+      <div class="col-md-6">
         <ul class="nav nav-tabs nav-justified">
           <li class="nav-item">
             <router-link :to="to(lobbyRouteName)" :class="tabClass(lobbyRouteName)">{{lobbyTabLabel}}</router-link>

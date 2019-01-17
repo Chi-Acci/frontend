@@ -1,43 +1,45 @@
 <template>
-  <form class="rating">
-    <label>
-      <input type="radio" name="stars" value="1" v-on:input="$emit('input', 1)" />
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 2)" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="3" v-on:input="$emit('input', 3)" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="4" v-on:input="$emit('input', 4)" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-    <label>
-      <input type="radio" name="stars" value="5" v-on:input="$emit('input', 5)" />
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-      <span class="icon">★</span>
-    </label>
-  </form>
+  <div class="container">
+    <form class="rating">
+      <label>
+        <input type="radio" name="stars" value="1" v-on:input="$emit('input', 1)" />
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 2)" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="3" v-on:input="$emit('input', 3)" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="4" v-on:input="$emit('input', 4)" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" value="5" v-on:input="$emit('input', 5)" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+    </form>
+  </div>
 </template>
 
 <script>
 
 export default {
   name: 'startRating',
-  props: ['value'],
+  props: ['value']
 }
 </script>
 
@@ -47,7 +49,7 @@ export default {
     position: relative;
     height: 50px;
     line-height: 50px;
-    font-size: 50px;
+    font-size: 40px;
   }
 
   .rating label {
