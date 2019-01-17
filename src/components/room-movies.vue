@@ -1,16 +1,14 @@
 <template>
   <div>
-    ROOM MOVIES
-
     <div v-for='movie in movieList' :key='movie.id' class="container">
-      <movie-card :id='movie.id' :title='movie.title' :year='movie.year' :url='movie.url'/>
+      <movie-card :movie='movie'/>
       <br>
     </div>
   </div>
 </template>
 
 <script>
-import movieCard from '@/components/MovieCard'
+import movieCard from '@/components/movie-card'
 
 const movieList = [
   {

@@ -1,13 +1,17 @@
 <template>
   <div class='card'>
-    <a :href='url' target='_blank'>
-      <p>{{title}} ({{year}})</p>
+    <a :href='movie.url' target='_blank'>
+      <p>{{movie.title}} ({{movie.year}})</p>
     </a>
-    <p>{{stars}}</p>
+    <div class="container">
+      <start-rating v-model="movie.rating"></start-rating>
+    </div>
   </div>
 </template>
 
 <script>
+import StartRating from '@/components/start-rating'
+
 function getRandomInt (min, max) {
   min = Math.ceil(min)
   max = Math.floor(max)
@@ -16,21 +20,10 @@ function getRandomInt (min, max) {
 
 export default {
   name: 'MovieCard',
+  components: { StartRating },
   props: {
-    id: {
-      type: Number,
-      required: true
-    },
-    title: {
-      type: String,
-      required: true
-    },
-    year: {
-      type: Number,
-      required: true
-    },
-    url: {
-      type: String,
+    movie: {
+      type: Object,
       required: true
     }
   },
