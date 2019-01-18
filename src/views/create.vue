@@ -16,7 +16,7 @@
           </div>
           <input
             type="text"
-            v-model='roomId'
+            v-model='roomSlug'
             class="form-control"
             :placeholder="roomIdPlaceholder"
             required>
@@ -79,7 +79,7 @@ export default {
       roomIdLabel: 'Room Id *',
       roomIdPlaceholder: 'Something Unique',
       roomIdClass: 'item',
-      roomId: this.randomString(),
+      roomSlug: this.randomString(),
 
       availableMoods: availableMoods,
       moodPlaceholder: 'What\'s the room\'s mood?',
@@ -92,14 +92,14 @@ export default {
   },
   computed: {
     btnDisabled () {
-      return !this.username || !this.roomId
+      return !this.username || !this.roomSlug
     },
     username () {
       return this.$store.getters.G_USERNAME
     }
   },
   watch: {
-    roomId () {
+    roomSlug () {
       this.roomIdClass = 'item'
     }
   },
@@ -110,10 +110,10 @@ export default {
     create () {
       console.log('POST /create:')
       console.log('username:', this.username)
-      console.log('room name:', this.roomId)
+      console.log('room name:', this.roomSlug)
       console.log('mood:', this.mood)
-      if (this.roomId !== 'abcd') {
-        this.$router.push({ name: this.roomPathName, params: { id: this.roomId } })
+      if (this.roomSlug !== 'abcd') {
+        this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
       } else {
         this.roomIdClass = 'item invalid'
       }

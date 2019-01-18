@@ -16,7 +16,7 @@
           </div>
           <input
             type="text"
-            v-model='roomId'
+            v-model='roomSlug'
             class="form-control"
             :placeholder="roomIdPlaceholder"
             required>
@@ -50,7 +50,7 @@ export default {
       roomIdLabel: 'Room Id *',
       roomIdPlaceholder: 'Ask for the room name',
       roomIdClass: 'item',
-      roomId: undefined,
+      roomSlug: undefined,
 
       joinBtnLabel: 'Join',
       roomPathName: 'room'
@@ -58,23 +58,23 @@ export default {
   },
   computed: {
     btnDisabled () {
-      return !this.username || !this.roomId
+      return !this.username || !this.roomSlug
     },
     username () {
       return this.$store.getters.G_USERNAME
     }
   },
   watch: {
-    roomId () {
+    roomSlug () {
       this.roomIdClass = 'item'
     }
   },
   methods: {
     join () {
       console.log('POST /join:')
-      console.log('room name:', this.roomId)
-      if (this.roomId !== 'abcd') {
-        this.$router.push({ name: this.roomPathName, params: { id: this.roomId } })
+      console.log('room name:', this.roomSlug)
+      if (this.roomSlug !== 'abcd') {
+        this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
       } else {
         this.roomIdClass = 'item invalid'
       }

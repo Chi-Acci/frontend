@@ -22,7 +22,7 @@ export const joinRoute = {
   component: () => import('@/views/join')
 }
 
-const roomPath = '/room/:id'
+const roomPath = '/room/:slug'
 
 export const roomLobbyRoute = {
   path: `${roomPath}/lobby`,

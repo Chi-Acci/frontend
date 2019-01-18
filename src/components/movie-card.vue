@@ -9,21 +9,38 @@
       <p class="card-text">
         {{movie.description}}
       </p>
-      <start-rating v-model="movie.rating"></start-rating>
+      <start-rating v-model="rating" :force-reset="forceReset"></start-rating>
+      {{rating}}
     </div>
   </div>
 </template>
 
 <script>
 import StartRating from '@/components/start-rating'
+import { A_RATE_MOVIE } from '../store/constants'
 
 export default {
   name: 'MovieCard',
   components: { StartRating },
-  props: {
-    movie: {
-      type: Object,
-      required: true
+  data () {
+    return {
+      rating: null,
+      forceReset: 0
+    }
+  },
+  computed: {
+    movie () {
+      return this.$store.getters.G_NEXT_MOVIE
+    }
+  },
+  watch: {
+    rating (newValue) {
+      if (newValue !== null) {
+        console.log(newValue)
+        this.$store.dispatch(A_RATE_MOVIE, { id: this.movie.id, rating: newValue })
+        this.rating = null
+        this.forceReset += 1
+      }
     }
   }
 }

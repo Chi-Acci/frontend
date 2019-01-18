@@ -2,29 +2,29 @@
   <div class="container">
     <form class="rating">
       <label>
-        <input type="radio" name="stars" value="1" v-on:input="$emit('input', 1)" />
+        <input type="radio" name="stars" v-on:input="update(1)" />
         <span class="icon">★</span>
       </label>
       <label>
-        <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 2)" />
-        <span class="icon">★</span>
-        <span class="icon">★</span>
-      </label>
-      <label>
-        <input type="radio" name="stars" value="3" v-on:input="$emit('input', 3)" />
-        <span class="icon">★</span>
+        <input type="radio" name="stars" v-on:input="update(2)" />
         <span class="icon">★</span>
         <span class="icon">★</span>
       </label>
       <label>
-        <input type="radio" name="stars" value="4" v-on:input="$emit('input', 4)" />
-        <span class="icon">★</span>
+        <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 3)" />
         <span class="icon">★</span>
         <span class="icon">★</span>
         <span class="icon">★</span>
       </label>
       <label>
-        <input type="radio" name="stars" value="5" v-on:input="$emit('input', 5)" />
+        <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 4)" />
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+        <span class="icon">★</span>
+      </label>
+      <label>
+        <input type="radio" name="stars" :value="value" v-on:input="$emit('input', 5)" />
         <span class="icon">★</span>
         <span class="icon">★</span>
         <span class="icon">★</span>
@@ -39,7 +39,23 @@
 
 export default {
   name: 'startRating',
-  props: ['value']
+  props: ['value', 'forceReset'],
+  methods: {
+    update (v) {
+      this.$emit('input', v)
+    },
+    reset () {
+      console.log('starts reset')
+      this.$forceUpdate()
+    }
+  },
+  watch: {
+    forceReset (newValue) {
+      if (newValue) {
+        this.reset()
+      }
+    }
+  }
 }
 </script>
 

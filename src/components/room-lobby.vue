@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-    <br>
     <ul class="list-group">
       <li class="list-group-item" v-for="user in users" :key="user.username">
         <div class="container">
@@ -25,27 +24,14 @@
 </template>
 
 <script>
-const otherUsers = [
-  {
-    username: 'Miguel Araujo', rated: 5
-  },
-  {
-    username: 'Antonio Zambujo', rated: 2
-  },
-  {
-    username: 'Maria', rated: 0
-  }
-]
 export default {
   name: 'RoomLobby',
-  data () {
-    return {
-      users: otherUsers
-    }
-  },
   computed: {
     username () {
       return this.$store.getters.G_USERNAME
+    },
+    users () {
+      return this.$store.getters.G_ROOM_USERS
     }
   },
   methods: {

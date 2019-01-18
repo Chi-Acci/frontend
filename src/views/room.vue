@@ -1,7 +1,5 @@
 <template>
   <div class="container-fluid">
-    <h4>{{topMsg}}</h4>
-
     <br>
 
     <div class="row justify-content-center">
@@ -17,6 +15,7 @@
             <router-link :to='to(resultsRouteName)' :class="tabClass(resultsRouteName)">{{resultsTabLabel}}</router-link>
           </li>
         </ul>
+        <br>
         <router-view/>
       </div>
     </div>
@@ -26,12 +25,12 @@
 
 <script>
 import { roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '@/router/routes'
+import { A_GET_ROOM } from '../store/constants'
 
 export default {
   name: 'room',
   data () {
     return {
-      topMsg: `Room ${this.$route.params.id}`,
       lobbyRouteName: roomLobbyRoute.name,
       lobbyTabLabel: 'Lobby',
       moviesRouteName: roomMoviesRoute.name,
@@ -40,14 +39,27 @@ export default {
       resultsTabLabel: 'Results'
     }
   },
+  computed: {
+    roomIsLoaded () {
+      return this.$store.getters.G_ROOM_IS_LOADED
+    }
+  },
   methods: {
+    getRoomData () {
+      this.$store.dispatch(A_GET_ROOM, this.$route.params.slug)
+    },
     to (name) {
       return { name: name, params: { id: this.$route.params.id } }
     },
     tabClass (name) {
       return name === this.$route.name ? 'tab selected' : 'tab not-selected'
     }
-  }
+  },
+  created () {
+    if (!this.roomIsLoaded) {
+      this.getRoomData()
+    }
+  },
 }
 </script>
 
