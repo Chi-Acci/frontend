@@ -59,7 +59,7 @@ export default {
     if (!this.roomIsLoaded) {
       this.getRoomData()
     }
-  },
+  }
 }
 </script>
 
