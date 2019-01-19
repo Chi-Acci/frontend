@@ -20,18 +20,43 @@
         </div>
       </li>
     </ul>
+
+    <br>
+    <div class="container">
+      <div class="row justify-content-around">
+        <div class="col-md-6">
+        <lobby-refresh :room-slug="slug"/>
+        </div>
+      </div>
+      <br>
+      <div class="row justify-content-around">
+        <div class="col-md-6">
+          <lobby-results :room-slug="slug"/>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import lobbyRefresh from './lobby-refresh'
+import lobbyResults from './lobby-results'
+
 export default {
   name: 'RoomLobby',
+  components: {
+    lobbyRefresh,
+    lobbyResults
+  },
   computed: {
     username () {
       return this.$store.getters.G_USERNAME
     },
     users () {
       return this.$store.getters.G_ROOM_USERS
+    },
+    slug () {
+      return this.$route.params.slug
     }
   },
   methods: {

@@ -83,11 +83,36 @@ const userList = [
   }
 ]
 
+const resultsList = [
+  {
+    id: 11,
+    title: 'Snowpiercer',
+    year: 2013,
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+    url: 'https://github.com/Chi-Acci'
+  },
+  {
+    id: 12,
+    title: 'The Prestige',
+    year: 2004,
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+    url: 'https://github.com/Chi-Acci'
+  },
+  {
+    id: 13,
+    title: 'Lion King',
+    year: 1995,
+    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+    url: 'https://github.com/Chi-Acci'
+  }
+]
+
 export const roomData = {
   id: 14,
   // slug: ???
   admin: 'Maria',
   users: userList,
   movies: movieList,
+  results: resultsList,
   mood: undefined
 }

@@ -2,9 +2,11 @@ export const G_USERNAME = 'G_USERNAME'
 export const M_USERNAME = 'M_USERNAME'
 
 export const G_ROOM_IS_LOADED = 'G_ROOM_IS_LOADED'
+export const G_ROOM_STATUS = 'G_ROOM_STATUS'
 export const G_ROOM_USERS = 'G_ROOM_USERS'
 export const G_ROOM_MOVIES = 'G_ROOM_MOVIES'
 export const G_NEXT_MOVIE = 'G_NEXT_MOVIE'
+export const G_ROOM_RESULTS = 'G_ROOM_RESULTS'
 export const M_ROOM = 'M_ROOM'
 
 export const A_CREATE_ROOM = 'A_CREATE_ROOM'

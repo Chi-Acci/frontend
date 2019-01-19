@@ -1,36 +1,67 @@
 <template>
-  <div>
-    ROOM RESULTS
-
-    <ul>
-      <li v-for="movie in results" :key="movie.id">
-        {{ movie.title }}
-      </li>
-    </ul>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div v-if="results" class="col-md-10">
+        <movie-card :movie="movie" :read-only="true"/>
+        <br>
+        <div class="container">
+          <div class="row justify-content-around">
+            <div class="col-md-7">
+              <div class="row justify-content-around">
+                <button type="button" class="btn btn-outline-dark" :disabled="prevBtnDisabled" v-on:click="onClickPrev()">{{prevBtnLabel}}</button>
+                <button type="button" class="btn btn-outline-dark" :disabled="nextBtnDisabled" v-on:click="onClickNext()">{{nextBtnLabel}}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="alert alert-dark" role="alert">
+        {{noResultsMsg}}
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-const results = [
-  {
-    id: 11,
-    title: 'Snowpiercer',
-    year: 2013,
-    url: 'https://github.com/Chi-Acci'
-  },
-  {
-    id: 12,
-    title: 'The Prestige',
-    year: 2004,
-    url: 'https://github.com/Chi-Acci'
-  }
-]
+import { G_ROOM_RESULTS } from '@/store/constants'
+import movieCard from './movie-card'
 
 export default {
   name: 'RoomResults',
+  components: {
+    movieCard
+  },
   data () {
     return {
-      results: results
+      noResultsMsg: 'Results are not yet available',
+      currentResultIndex: 0,
+      prevBtnLabel: 'Prev',
+      nextBtnLabel: 'Next'
+    }
+  },
+  computed: {
+    results () {
+      console.log('G_ROOM_RESULTS', G_ROOM_RESULTS)
+      const heu = this.$store.getters[G_ROOM_RESULTS]
+      console.log('results', heu)
+      return heu
+    },
+    movie () {
+      return this.results ? this.results[this.currentResultIndex] : undefined
+    },
+    prevBtnDisabled () {
+      return this.results ? this.currentResultIndex === 0 : false
+    },
+    nextBtnDisabled () {
+      return this.results ? this.currentResultIndex === this.results.length - 1 : false
+    }
+  },
+  methods: {
+    onClickPrev () {
+      this.currentResultIndex -= 1
+    },
+    onClickNext () {
+      this.currentResultIndex += 1
     }
   }
 }
