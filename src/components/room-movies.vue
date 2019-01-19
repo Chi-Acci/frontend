@@ -2,11 +2,10 @@
   <div class="container">
     <div class="row justify-content-center">
       <div v-if="movie" class="col-md-10">
-        <movie-card v-if="movie"/>
-
-        <div v-else class="alert alert-success" role="alert">
-          {{finishedMsg}}
-        </div>
+        <movie-card :movie="movie" :read-only="false"/>
+      </div>
+      <div v-else class="alert alert-dark" role="alert">
+        {{finishedMsg}}
       </div>
     </div>
   </div>
@@ -34,5 +33,8 @@ export default {
 </script>
 
 <style scoped>
-
+.alert {
+  background-color: gray;
+  color: white;
+}
 </style>
