@@ -107,7 +107,7 @@ const resultsList = [
   }
 ]
 
-export const roomData = {
+export const devRoomData = {
   id: 14,
   // slug: ???
   admin: 'Maria',

@@ -1,15 +1,9 @@
 <template>
   <div class="container">
-    <h4>{{topMsg}}</h4>
-
-    <br>
-
     <div class="row justify-content-center">
       <div class="col-md-4">
         <username/>
-
         <br>
-
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">{{roomIdLabel}}</span>
@@ -22,21 +16,18 @@
             required>
           <!--- :class='roomIdClass'-->
         </div>
-
         <br>
-
         <button class="btn btn-dark" type='button' :disabled='btnDisabled' v-on:click='join()'>
           {{joinBtnLabel}}
         </button>
-
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import username from '@/components/username'
+import { G_USERNAME, A_JOIN_ROOM } from '../store/constants'
+import username from '@/components/input-username'
 
 export default {
   name: 'join',
@@ -45,10 +36,8 @@ export default {
   },
   data () {
     return {
-      topMsg: 'Join Room',
-
       roomIdLabel: 'Room Id *',
-      roomIdPlaceholder: 'Ask for the room name',
+      roomIdPlaceholder: 'Ask around',
       roomIdClass: 'item',
       roomSlug: undefined,
 
@@ -61,7 +50,7 @@ export default {
       return !this.username || !this.roomSlug
     },
     username () {
-      return this.$store.getters.G_USERNAME
+      return this.$store.getters[G_USERNAME]
     }
   },
   watch: {
@@ -71,13 +60,15 @@ export default {
   },
   methods: {
     join () {
-      console.log('POST /join:')
-      console.log('room name:', this.roomSlug)
-      if (this.roomSlug !== 'abcd') {
-        this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
-      } else {
-        this.roomIdClass = 'item invalid'
-      }
+      this.$store.dispatch(A_JOIN_ROOM, this.roomSlug)
+        .then(() => { this.joinSuccess() })
+        .catch(() => { this.joinFail() })
+    },
+    joinSuccess () {
+      this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
+    },
+    joinFail () {
+      this.roomIdClass = 'item invalid'
     }
   }
 }

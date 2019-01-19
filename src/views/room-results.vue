@@ -9,6 +9,7 @@
             <div class="col-md-7">
               <div class="row justify-content-around">
                 <button type="button" class="btn btn-outline-dark" :disabled="prevBtnDisabled" v-on:click="onClickPrev()">{{prevBtnLabel}}</button>
+                {{currentResultIndex + 1}}
                 <button type="button" class="btn btn-outline-dark" :disabled="nextBtnDisabled" v-on:click="onClickNext()">{{nextBtnLabel}}</button>
               </div>
             </div>
@@ -24,7 +25,7 @@
 
 <script>
 import { G_ROOM_RESULTS } from '@/store/constants'
-import movieCard from './movie-card'
+import movieCard from '../components/movie-card'
 
 export default {
   name: 'RoomResults',

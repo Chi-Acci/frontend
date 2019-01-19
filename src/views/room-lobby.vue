@@ -39,8 +39,8 @@
 </template>
 
 <script>
-import lobbyRefresh from './lobby-refresh'
-import lobbyResults from './lobby-results'
+import lobbyRefresh from '../components/lobby-refresh'
+import lobbyResults from '../components/lobby-results'
 
 export default {
   name: 'RoomLobby',

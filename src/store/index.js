@@ -10,7 +10,7 @@ import {
   M_ROOM,
   A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_RATE_MOVIE
 } from './constants'
-import { roomData } from '../assets/dev'
+import { devRoomData } from '../assets/dev'
 
 Vue.use(Vuex)
 
@@ -40,21 +40,21 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    [A_CREATE_ROOM]: ({ commit, getters }, roomSlug) => new Promise((resolve) => {
-      const data = roomData
-      data.slug = roomSlug
+    [A_CREATE_ROOM]: ({ commit, getters }, roomData) => new Promise((resolve) => {
+      const data = devRoomData
+      data.slug = roomData.slug
       data.admin = getters[G_USERNAME]
       commit(M_ROOM, data)
       resolve()
     }),
     [A_JOIN_ROOM]: ({ commit, getters }, roomSlug) => new Promise((resolve) => {
-      const data = roomData
+      const data = devRoomData
       data.slug = roomSlug
       commit(M_ROOM, data)
       resolve()
     }),
     [A_GET_ROOM]: ({ commit, getters }, roomSlug) => new Promise((resolve) => {
-      const data = roomData
+      const data = devRoomData
       data.slug = roomSlug
       commit(M_ROOM, data)
       resolve()

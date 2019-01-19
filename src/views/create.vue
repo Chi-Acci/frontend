@@ -1,15 +1,9 @@
 <template>
   <div class="container">
-    <h4>{{topMsg}}</h4>
-
-    <br>
-
     <div class="row justify-content-center">
       <div class="col-md-4">
         <username/>
-
         <br>
-
         <div class="input-group">
           <div class="input-group-prepend">
             <span class="input-group-text">{{roomIdLabel}}</span>
@@ -22,9 +16,7 @@
             required>
           <!--- :class='roomIdClass'-->
         </div>
-
         <br>
-
         <div class="input-group">
           <div class="input-group-prepend">
             <label class="input-group-text">{{moodLabel}}</label>
@@ -36,21 +28,18 @@
             </option>
           </select>
         </div>
-
         <br>
-
         <button class="btn btn-dark" type='button' :disabled='btnDisabled' v-on:click='create()'>
           {{createBtnLabel}}
         </button>
-
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-import username from '@/components/username'
+import { G_USERNAME, A_CREATE_ROOM } from '../store/constants'
+import username from '@/components/input-username'
 
 const availableMoods = [
   {
@@ -95,7 +84,13 @@ export default {
       return !this.username || !this.roomSlug
     },
     username () {
-      return this.$store.getters.G_USERNAME
+      return this.$store.getters[G_USERNAME]
+    },
+    room () {
+      return {
+        slug: this.roomSlug,
+        mood: this.mood
+      }
     }
   },
   watch: {
@@ -112,11 +107,15 @@ export default {
       console.log('username:', this.username)
       console.log('room name:', this.roomSlug)
       console.log('mood:', this.mood)
-      if (this.roomSlug !== 'abcd') {
-        this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
-      } else {
-        this.roomIdClass = 'item invalid'
-      }
+      this.$store.dispatch(A_CREATE_ROOM, this.roomSlug)
+        .then(() => { this.createSuccess() })
+        .catch(() => { this.createFail() })
+    },
+    createSuccess () {
+      this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
+    },
+    createFail () {
+      this.roomIdClass = 'item invalid'
     }
   }
 }

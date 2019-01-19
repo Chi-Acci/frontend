@@ -27,19 +27,19 @@ const roomPath = '/room/:slug'
 export const roomLobbyRoute = {
   path: `${roomPath}/lobby`,
   name: 'lobby',
-  component: () => import('@/components/room-lobby')
+  component: () => import('@/views/room-lobby')
 }
 
 export const roomMoviesRoute = {
   path: `${roomPath}/movies`,
   name: 'movies',
-  component: () => import('@/components/room-movies')
+  component: () => import('@/views/room-movies')
 }
 
 export const roomResultsRoute = {
   path: `${roomPath}/results`,
   name: 'results',
-  component: () => import('@/components/room-results')
+  component: () => import('@/views/room-results')
 }
 
 export const roomRoutes = {
