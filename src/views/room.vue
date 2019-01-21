@@ -1,7 +1,6 @@
 <template>
   <div class="container-fluid">
     <br>
-
     <div class="row justify-content-center">
       <div class="col-md-6">
         <ul class="nav nav-tabs nav-justified">
@@ -25,7 +24,7 @@
 
 <script>
 import { roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '@/router/routes'
-import { A_GET_ROOM } from '../store/constants'
+import { G_ROOM_IS_LOADED, A_GET_ROOM } from '../store/constants'
 
 export default {
   name: 'room',
@@ -41,7 +40,8 @@ export default {
   },
   computed: {
     roomIsLoaded () {
-      return this.$store.getters.G_ROOM_IS_LOADED
+      console.log(G_ROOM_IS_LOADED)
+      return this.$store.getters[G_ROOM_IS_LOADED]
     }
   },
   methods: {

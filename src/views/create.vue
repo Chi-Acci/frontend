@@ -103,11 +103,7 @@ export default {
       return Math.random().toString(36).substring(2, 15)
     },
     create () {
-      console.log('POST /create:')
-      console.log('username:', this.username)
-      console.log('room name:', this.roomSlug)
-      console.log('mood:', this.mood)
-      this.$store.dispatch(A_CREATE_ROOM, this.roomSlug)
+      this.$store.dispatch(A_CREATE_ROOM, this.room)
         .then(() => { this.createSuccess() })
         .catch(() => { this.createFail() })
     },
