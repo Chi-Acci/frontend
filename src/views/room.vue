@@ -23,13 +23,14 @@
 </template>
 
 <script>
-import { roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '@/router/routes'
+import { homeRoute, roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '../router/routes'
 import { G_ROOM_IS_LOADED, A_GET_ROOM } from '../store/constants'
 
 export default {
   name: 'room',
   data () {
     return {
+      homeRoute: homeRoute,
       lobbyRouteName: roomLobbyRoute.name,
       lobbyTabLabel: 'Lobby',
       moviesRouteName: roomMoviesRoute.name,
@@ -47,6 +48,10 @@ export default {
   methods: {
     getRoomData () {
       this.$store.dispatch(A_GET_ROOM, this.$route.params.slug)
+        .catch(() => { this.getRoomDataError() })
+    },
+    getRoomDataError () {
+      this.$router.push({ name: this.homeRoute.name })
     },
     to (name) {
       return { name: name, params: { id: this.$route.params.id } }

@@ -38,7 +38,8 @@
 </template>
 
 <script>
-import { G_USERNAME, A_CREATE_ROOM } from '../store/constants'
+import { roomRoutes } from '../router/routes'
+import { G_USERNAME, A_CREATE_USER, A_CREATE_ROOM } from '../store/constants'
 import username from '@/components/input-username'
 
 const availableMoods = [
@@ -75,8 +76,7 @@ export default {
       moodLabel: 'Mood',
       mood: 'any',
 
-      createBtnLabel: 'Create',
-      roomPathName: 'room'
+      createBtnLabel: 'Create'
     }
   },
   computed: {
@@ -103,12 +103,16 @@ export default {
       return Math.random().toString(36).substring(2, 15)
     },
     create () {
-      this.$store.dispatch(A_CREATE_ROOM, this.room)
-        .then(() => { this.createSuccess() })
-        .catch(() => { this.createFail() })
+      this.$store.dispatch(A_CREATE_USER, this.username)
+        .then(() => {
+          this.$store.dispatch(A_CREATE_ROOM, this.room)
+            .then(() => { this.createSuccess() })
+            .catch(() => { this.createFail() })
+        })
+        .catch(() => {})
     },
     createSuccess () {
-      this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
+      this.$router.push({ name: roomRoutes.name, params: { slug: this.roomSlug } })
     },
     createFail () {
       this.roomIdClass = 'item invalid'

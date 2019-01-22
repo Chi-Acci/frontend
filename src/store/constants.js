@@ -1,7 +1,6 @@
 export const G_USERNAME = 'G_USERNAME'
 export const M_USERNAME = 'M_USERNAME'
 export const G_TOKEN = 'G_TOKEN'
-
 export const M_TOKEN = 'M_TOKEN'
 export const M_TOKEN_CLEAR = 'M_TOKEN_CLEAR'
 

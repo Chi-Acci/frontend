@@ -25,6 +25,8 @@
 </template>
 
 <script>
+import { M_TOKEN_CLEAR } from '../store/constants'
+
 export default {
   name: 'home',
   data () {
@@ -36,6 +38,9 @@ export default {
       joinBtnLabel: 'Join Room',
       joinBtnRoute: 'join'
     }
+  },
+  created () {
+    this.$store.commit(M_TOKEN_CLEAR)
   }
 }
 </script>

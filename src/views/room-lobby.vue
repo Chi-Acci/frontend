@@ -1,11 +1,11 @@
 <template>
   <div class="container">
     <ul class="list-group">
-      <li class="list-group-item" v-for="user in users" :key="user.username">
+      <li class="list-group-item" v-for="(user, index) in users" :key="index">
         <div class="container">
           <div class="row">
             <div class="col-md-6">
-              <span :style="usernameStyle(user.username)">{{ user.username }}</span>
+              <span :style="usernameStyle(user.name)">{{ user.name }}</span>
             </div>
             <div class="col-md-6">
               <div class="progress">
@@ -39,6 +39,7 @@
 </template>
 
 <script>
+import { G_USERNAME, G_ROOM_USERS } from '../store/constants'
 import lobbyRefresh from '../components/lobby-refresh'
 import lobbyResults from '../components/lobby-results'
 
@@ -50,10 +51,10 @@ export default {
   },
   computed: {
     username () {
-      return this.$store.getters.G_USERNAME
+      return this.$store.getters[G_USERNAME]
     },
     users () {
-      return this.$store.getters.G_ROOM_USERS
+      return this.$store.getters[G_ROOM_USERS]
     },
     slug () {
       return this.$route.params.slug

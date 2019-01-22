@@ -9,7 +9,7 @@
       <p class="card-text">
         {{movie.description}}
       </p>
-      <input-rating v-if="!readOnly" v-on:rated="rated"/>
+      <input-rating v-if="!readOnly" v-on:rated="onRate"/>
     </div>
   </div>
 </template>
@@ -36,9 +36,8 @@ export default {
   computed: {
   },
   methods: {
-    rated (rating) {
-      console.log('rating -> ', rating)
-      this.$store.dispatch(A_RATE_MOVIE, { id: this.movie.id, rating: rating })
+    onRate (score) {
+      this.$store.dispatch(A_RATE_MOVIE, { movie: this.movie.id, score })
     }
   }
 }

@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { G_USERNAME, A_JOIN_ROOM } from '../store/constants'
+import { roomRoutes } from '../router/routes'
+import { G_USERNAME, A_CREATE_USER, A_JOIN_ROOM } from '../store/constants'
 import username from '@/components/input-username'
 
 export default {
@@ -41,8 +42,7 @@ export default {
       roomIdClass: 'item',
       roomSlug: undefined,
 
-      joinBtnLabel: 'Join',
-      roomPathName: 'room'
+      joinBtnLabel: 'Join'
     }
   },
   computed: {
@@ -60,12 +60,16 @@ export default {
   },
   methods: {
     join () {
-      this.$store.dispatch(A_JOIN_ROOM, this.roomSlug)
-        .then(() => { this.joinSuccess() })
-        .catch(() => { this.joinFail() })
+      this.$store.dispatch(A_CREATE_USER, this.username)
+        .then(() => {
+          this.$store.dispatch(A_JOIN_ROOM, this.roomSlug)
+            .then(() => { this.joinSuccess() })
+            .catch(() => { this.joinFail() })
+        })
+        .catch(() => {})
     },
     joinSuccess () {
-      this.$router.push({ name: this.roomPathName, params: { slug: this.roomSlug } })
+      this.$router.push({ name: roomRoutes.name, params: { slug: this.roomSlug } })
     },
     joinFail () {
       this.roomIdClass = 'item invalid'
