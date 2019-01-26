@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <br>
-    <div class="row justify-content-center">
+    <div v-if="roomIsLoaded" class="row justify-content-center">
       <div class="col-md-6">
         <ul class="nav nav-tabs nav-justified">
           <li class="nav-item">
@@ -41,7 +41,6 @@ export default {
   },
   computed: {
     roomIsLoaded () {
-      console.log(G_ROOM_IS_LOADED)
       return this.$store.getters[G_ROOM_IS_LOADED]
     }
   },

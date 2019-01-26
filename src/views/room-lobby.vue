@@ -11,8 +11,8 @@
               <div class="progress">
                 <div class="progress-bar bg-dark"
                      role="progressbar"
-                     :style="progressStyle(user.rated)"
-                     :aria-valuenow="user.rated" aria-valuemin="0" aria-valuemax="10">
+                     :style="progressStyle(user.rated_count)"
+                     :aria-valuenow="user.rated_count" aria-valuemin="0" aria-valuemax="10">
                 </div>
               </div>
             </div>
@@ -20,16 +20,15 @@
         </div>
       </li>
     </ul>
-
     <br>
     <div class="container">
-      <div class="row justify-content-around">
+      <div v-if="!resultsAreReady" class="row justify-content-around">
         <div class="col-md-6">
         <lobby-refresh :room-slug="slug"/>
         </div>
       </div>
       <br>
-      <div class="row justify-content-around">
+      <div v-if="resultsAreReady" class="row justify-content-around">
         <div class="col-md-6">
           <lobby-results :room-slug="slug"/>
         </div>
@@ -39,7 +38,7 @@
 </template>
 
 <script>
-import { G_USERNAME, G_ROOM_USERS } from '../store/constants'
+import { G_USERNAME, G_ROOM_USERS, G_ROOM_RESULTS_READY } from '../store/constants'
 import lobbyRefresh from '../components/lobby-refresh'
 import lobbyResults from '../components/lobby-results'
 
@@ -58,6 +57,9 @@ export default {
     },
     slug () {
       return this.$route.params.slug
+    },
+    resultsAreReady () {
+      return this.$store.getters[G_ROOM_RESULTS_READY]
     }
   },
   methods: {
@@ -66,7 +68,6 @@ export default {
       return `color: ${color}`
     },
     progressStyle (value) {
-      console.log(value)
       return `width: ${value * 10}%;`
     }
   }

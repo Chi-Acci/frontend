@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn-dark" type='button' :disabled='disabled' v-on:click='onClick()'>
+  <button class="btn btn-dark" type='button' v-on:click='onClick()'>
     {{label}}
   </button>
 </template>
@@ -20,14 +20,9 @@ export default {
       label: 'Calculate Results'
     }
   },
-  computed: {
-    disabled () {
-      return true
-    }
-  },
   methods: {
     onClick () {
-      this.$store.dispatch(A_GET_ROOM)
+      this.$store.dispatch(A_GET_ROOM, this.roomSlug)
     }
   }
 }

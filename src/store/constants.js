@@ -11,6 +11,8 @@ export const G_ROOM_STATUS = 'G_ROOM_STATUS'
 export const G_ROOM_USERS = 'G_ROOM_USERS'
 export const G_ROOM_MOVIES = 'G_ROOM_MOVIES'
 export const G_NEXT_MOVIE = 'G_NEXT_MOVIE'
+export const G_ROOM_UNRATED_MOVIES = 'G_ROOM_UNRATED_MOVIES'
+export const G_ROOM_RESULTS_READY = 'G_ROOM_RESULTS_READY'
 export const G_ROOM_RESULTS = 'G_ROOM_RESULTS'
 
 export const M_ROOM = 'M_ROOM'

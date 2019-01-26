@@ -7,7 +7,8 @@ import {
   G_ROOM_IS_LOADED, G_ROOM_STATUS,
   G_ROOM_USERS, G_ROOM_MOVIES,
   G_NEXT_MOVIE,
-  G_ROOM_RESULTS,
+  G_ROOM_RESULTS_READY, G_ROOM_RESULTS,
+  G_ROOM_UNRATED_MOVIES,
   M_ROOM, M_ROOM_CLEAR,
   A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_RATE_MOVIE
 } from './constants'
@@ -32,9 +33,14 @@ export default new Vuex.Store({
     [G_ROOM_STATUS]: state => state.room ? state.room.status : '',
     [G_ROOM_USERS]: state => state.room ? state.room.users : [],
     [G_ROOM_MOVIES]: state => state.room ? state.room.movies : [],
+    [G_ROOM_UNRATED_MOVIES]: state => state.room.unrated_movies ? state.room.unrated_movies : [],
     [G_NEXT_MOVIE]: (state, getters) => {
-      console.log(getters[G_ROOM_MOVIES])
-      return getters[G_ROOM_MOVIES].find(movie => movie.score === 0)
+      return getters[G_ROOM_UNRATED_MOVIES][0]
+    },
+    [G_ROOM_RESULTS_READY]: (state, getters) => {
+      return state.room
+        ? !getters[G_ROOM_USERS].find(user => user.rated_count < getters[G_ROOM_MOVIES].length)
+        : false
     },
     [G_ROOM_RESULTS]: state => state.room ? state.room.results : undefined
   },
@@ -105,12 +111,7 @@ export default new Vuex.Store({
       console.log(ratingData)
       backend.post(RATINGS_URL, ratingData)
         .then(response => {
-          console.warn(response.data.movie)
-          const index = getters[G_ROOM_MOVIES].findIndex(movie => movie.id === response.data.movie)
-          const m = getters[G_ROOM_MOVIES][index]
-          m.score = response.data.score
-          console.log(getters[G_ROOM_MOVIES][index])
-          // getters.G_ROOM_MOVIES.shift()
+          getters[G_ROOM_UNRATED_MOVIES].shift()
           resolve()
         })
         .catch(err => {

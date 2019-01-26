@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     onClick () {
-      this.$store.dispatch(A_GET_ROOM)
+      this.$store.dispatch(A_GET_ROOM, this.roomSlug)
     }
   }
 }
