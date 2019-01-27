@@ -2,10 +2,10 @@
   <button class="btn btn-dark" type='button' v-on:click='onClick()'>
     {{label}}
   </button>
-</template>
+</template>0
 
 <script>
-import { A_GET_ROOM } from '../store/constants'
+import { A_GET_ROOM_RESULTS } from '../store/constants'
 
 export default {
   name: 'room-results',
@@ -22,7 +22,7 @@ export default {
   },
   methods: {
     onClick () {
-      this.$store.dispatch(A_GET_ROOM, this.roomSlug)
+      this.$store.dispatch(A_GET_ROOM_RESULTS, this.roomSlug)
     }
   }
 }

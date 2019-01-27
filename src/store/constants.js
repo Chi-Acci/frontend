@@ -17,9 +17,12 @@ export const G_ROOM_RESULTS = 'G_ROOM_RESULTS'
 
 export const M_ROOM = 'M_ROOM'
 export const M_ROOM_CLEAR = 'M_ROOM_CLEAR'
+export const M_ROOM_RESULTS = 'M_ROOM_RESULTS'
+export const M_ROOM_RESULTS_CLEAR = 'M_ROOM_RESULTS_CLEAR'
 
 export const A_CREATE_ROOM = 'A_CREATE_ROOM'
 export const A_JOIN_ROOM = 'A_JOIN_ROOM'
 export const A_GET_ROOM = 'A_GET_ROOM'
+export const A_GET_ROOM_RESULTS = 'A_GET_ROOM_RESULTS'
 
 export const A_RATE_MOVIE = 'A_RATE_MOVIE'

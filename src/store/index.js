@@ -9,8 +9,9 @@ import {
   G_NEXT_MOVIE,
   G_ROOM_RESULTS_READY, G_ROOM_RESULTS,
   G_ROOM_UNRATED_MOVIES,
-  M_ROOM, M_ROOM_CLEAR,
-  A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_RATE_MOVIE
+  M_ROOM, M_ROOM_CLEAR, M_ROOM_RESULTS, M_ROOM_RESULTS_CLEAR,
+  A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_GET_ROOM_RESULTS,
+  A_RATE_MOVIE
 } from './constants'
 import backend from '../backend'
 
@@ -24,7 +25,8 @@ export default new Vuex.Store({
   state: {
     username: localStorage.getItem('username') || undefined,
     token: localStorage.getItem('token') || undefined,
-    room: undefined
+    room: undefined,
+    results: undefined
   },
   getters: {
     [G_USERNAME]: state => state.username,
@@ -42,7 +44,7 @@ export default new Vuex.Store({
         ? !getters[G_ROOM_USERS].find(user => user.rated_count < getters[G_ROOM_MOVIES].length)
         : false
     },
-    [G_ROOM_RESULTS]: state => state.room ? state.room.results : undefined
+    [G_ROOM_RESULTS]: state => state.results ? state.results.results : undefined
   },
   mutations: {
     [M_USERNAME]: (state, username) => {
@@ -59,6 +61,15 @@ export default new Vuex.Store({
     },
     [M_ROOM]: (state, room) => {
       state.room = room
+    },
+    [M_ROOM_CLEAR]: (state) => {
+      state.room = undefined
+    },
+    [M_ROOM_RESULTS]: (state, results) => {
+      state.results = results
+    },
+    [M_ROOM_RESULTS_CLEAR]: (state) => {
+      state.results = undefined
     }
   },
   actions: {
@@ -104,6 +115,17 @@ export default new Vuex.Store({
         })
         .catch(err => {
           commit(M_ROOM_CLEAR)
+          reject(err)
+        })
+    }),
+    [A_GET_ROOM_RESULTS]: ({ commit }, roomSlug) => new Promise((resolve, reject) => {
+      backend.get(`${ROOMS_URL}/${roomSlug}/results`)
+        .then(response => {
+          commit(M_ROOM_RESULTS, response.data)
+          resolve()
+        })
+        .catch(err => {
+          commit(M_ROOM_RESULTS_CLEAR)
           reject(err)
         })
     }),

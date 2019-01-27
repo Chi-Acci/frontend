@@ -42,10 +42,7 @@ export default {
   },
   computed: {
     results () {
-      console.log('G_ROOM_RESULTS', G_ROOM_RESULTS)
-      const heu = this.$store.getters[G_ROOM_RESULTS]
-      console.log('results', heu)
-      return heu
+      return this.$store.getters[G_ROOM_RESULTS]
     },
     movie () {
       return this.results ? this.results[this.currentResultIndex] : undefined

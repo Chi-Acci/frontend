@@ -27,7 +27,6 @@
         <lobby-refresh :room-slug="slug"/>
         </div>
       </div>
-      <br>
       <div v-if="resultsAreReady" class="row justify-content-around">
         <div class="col-md-6">
           <lobby-results :room-slug="slug"/>
