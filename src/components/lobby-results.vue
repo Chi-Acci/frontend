@@ -6,6 +6,7 @@
 
 <script>
 import { A_GET_ROOM_RESULTS } from '../store/constants'
+import {roomResultsRoute} from '../router/routes'
 
 export default {
   name: 'room-results',
@@ -23,6 +24,9 @@ export default {
   methods: {
     onClick () {
       this.$store.dispatch(A_GET_ROOM_RESULTS, this.roomSlug)
+        .then(() => {
+          this.$router.push({ name: roomResultsRoute.name, params: { slug: this.roomSlug } })
+        })
     }
   }
 }
