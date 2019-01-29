@@ -1,5 +1,7 @@
 # Groovies Frontend
 
+[![Build Status](https://travis-ci.com/Chi-Acci/groovies-frontend.svg?branch=master)](https://travis-ci.com/Chi-Acci/groovies-frontend)
+
 Poc frontend for the Groovies Project
 
 ## Development
