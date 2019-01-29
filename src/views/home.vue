@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import { M_TOKEN_CLEAR } from '../store/constants'
+import { A_SESSION_RESET } from '../store/constants'
 
 export default {
   name: 'home',
@@ -40,7 +40,7 @@ export default {
     }
   },
   created () {
-    this.$store.commit(M_TOKEN_CLEAR)
+    this.$store.dispatch(A_SESSION_RESET)
   }
 }
 </script>

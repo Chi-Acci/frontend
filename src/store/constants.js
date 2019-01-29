@@ -26,3 +26,5 @@ export const A_GET_ROOM = 'A_GET_ROOM'
 export const A_GET_ROOM_RESULTS = 'A_GET_ROOM_RESULTS'
 
 export const A_RATE_MOVIE = 'A_RATE_MOVIE'
+
+export const A_SESSION_RESET = 'A_SESSION_RESET'
