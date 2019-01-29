@@ -1,5 +1,6 @@
 # Groovies Frontend
 
+[![vue2](https://img.shields.io/badge/vue-2.5.21-blue.svg)](https://vuejs.org/)
 [![Build Status](https://travis-ci.com/Chi-Acci/groovies-frontend.svg?branch=master)](https://travis-ci.com/Chi-Acci/groovies-frontend)
 
 Poc frontend for the Groovies Project
