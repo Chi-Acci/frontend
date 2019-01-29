@@ -24,11 +24,11 @@
 </template>
 
 <script>
-import { G_ROOM_RESULTS } from '@/store/constants'
+import { G_ROOM_RESULTS } from '../store/constants'
 import movieCard from '../components/movie-card'
 
 export default {
-  name: 'RoomResults',
+  name: 'room-results',
   components: {
     movieCard
   },

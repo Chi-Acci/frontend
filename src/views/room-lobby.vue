@@ -49,7 +49,7 @@ import lobbyRefresh from '../components/lobby-refresh'
 import lobbyResults from '../components/lobby-results'
 
 export default {
-  name: 'RoomLobby',
+  name: 'room-lobby',
   components: {
     lobbyRefresh,
     lobbyResults

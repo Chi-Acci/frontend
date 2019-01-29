@@ -40,7 +40,7 @@
 <script>
 import { roomRoutes } from '../router/routes'
 import { G_USERNAME, A_CREATE_USER, A_CREATE_ROOM } from '../store/constants'
-import username from '@/components/input-username'
+import username from '../components/input-username'
 
 const availableMoods = [
   {

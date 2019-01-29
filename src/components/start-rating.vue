@@ -36,16 +36,15 @@
 </template>
 
 <script>
-
+// this component is not currently being used because it sucks actually
 export default {
-  name: 'startRating',
+  name: 'star-rating',
   props: ['value', 'forceReset'],
   methods: {
     update (v) {
       this.$emit('input', v)
     },
     reset () {
-      console.log('starts reset')
       this.$forceUpdate()
     }
   },

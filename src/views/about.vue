@@ -10,17 +10,7 @@ export default {
   data () {
     return {
       topMsg: 'How does it work?',
-      contentMsg: 'Lorem Ipsum is simply dummy \
-                  text of the printing and typesetting industry. \
-                  Lorem Ipsum has been the industry\'s standard dummy \
-                  text ever since the 1500s, when an unknown printer \
-                  took a galley of type and scrambled it to make a \
-                  type specimen book. It has survived not only five centuries, \
-                  but also the leap into electronic typesetting, \
-                  remaining essentially unchanged. It was popularised in the 1960s \
-                  with the release of Letraset sheets containing Lorem Ipsum passages, \
-                  and more recently with desktop publishing software like Aldus PageMaker \
-                  including versions of Lorem Ipsum.'
+      contentMsg: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut faucibus pulvinar elementum integer enim. Habitant morbi tristique senectus et netus. Mattis aliquam faucibus purus in massa tempor nec. Urna porttitor rhoncus dolor purus non enim praesent elementum. Donec adipiscing tristique risus nec feugiat in fermentum posuere urna. Sed sed risus pretium quam vulputate dignissim suspendisse in. Ullamcorper eget nulla facilisi etiam dignissim diam quis enim. Dapibus ultrices in iaculis nunc. Ipsum dolor sit amet consectetur adipiscing elit. Odio aenean sed adipiscing diam donec adipiscing tristique. Pretium vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae. Molestie at elementum eu facilisis sed odio morbi. Amet risus nullam eget felis eget nunc lobortis. Enim neque volutpat ac tincidunt vitae. Amet venenatis urna cursus eget. Feugiat in fermentum posuere urna. Sed id semper risus in hendrerit gravida rutrum quisque non.'
     }
   }
 }

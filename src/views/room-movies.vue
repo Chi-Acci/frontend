@@ -12,7 +12,8 @@
 </template>
 
 <script>
-import movieCard from '@/components/movie-card'
+import { G_NEXT_MOVIE } from '../store/constants'
+import movieCard from '../components/movie-card'
 
 export default {
   name: 'RoomMovies',
@@ -26,7 +27,7 @@ export default {
   },
   computed: {
     movie () {
-      return this.$store.getters.G_NEXT_MOVIE
+      return this.$store.getters[G_NEXT_MOVIE]
     }
   }
 }

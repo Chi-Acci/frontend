@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center">
       <div class="col-md-10">
-        <app-navigation/>
+        <layout-navigation/>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -12,21 +12,21 @@
     </div>
     <div class="row justify-content-center">
       <div class="col-md-10">
-        <app-footer/>
+        <layout-footer/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import appNavigation from '@/layout/navigation'
-import appFooter from '@/layout/footer'
+import layoutNavigation from './navigation'
+import layoutFooter from './footer'
 
 export default {
-  name: 'layout-main',
+  name: 'layout-main-container',
   components: {
-    appNavigation,
-    appFooter
+    layoutNavigation,
+    layoutFooter
   }
 }
 </script>

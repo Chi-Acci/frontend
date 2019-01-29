@@ -19,7 +19,7 @@ import inputRating from './input-rating'
 import { A_RATE_MOVIE } from '../store/constants'
 
 export default {
-  name: 'MovieCard',
+  name: 'movie-card',
   components: {
     inputRating
   },

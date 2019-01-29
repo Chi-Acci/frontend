@@ -8,7 +8,7 @@
 import { A_GET_ROOM } from '../store/constants'
 
 export default {
-  name: 'room-refresh',
+  name: 'lobby-refresh',
   props: {
     roomSlug: {
       type: String,

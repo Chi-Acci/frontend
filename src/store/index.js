@@ -135,7 +135,6 @@ export default new Vuex.Store({
         })
     }),
     [A_RATE_MOVIE]: ({ commit, getters }, ratingData) => new Promise((resolve, reject) => {
-      console.log(ratingData)
       backend.post(RATINGS_URL, ratingData)
         .then(() => {
           getters[G_ROOM_UNRATED_MOVIES].shift()

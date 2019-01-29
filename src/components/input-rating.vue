@@ -17,7 +17,7 @@
 <script>
 
 export default {
-  name: 'inputRating',
+  name: 'input-rating',
   methods: {
     rated (rating) {
       this.$emit('rated', rating)

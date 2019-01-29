@@ -9,7 +9,7 @@ import { A_GET_ROOM_RESULTS } from '../store/constants'
 import { roomResultsRoute } from '../router/routes'
 
 export default {
-  name: 'room-results',
+  name: 'lobby-results',
   props: {
     roomSlug: {
       type: String,

@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'appNavigation',
+  name: 'layout-navigation',
   data () {
     return {
       separator: ' | '

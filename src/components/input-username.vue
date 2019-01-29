@@ -19,7 +19,7 @@
 <script>
 
 export default {
-  name: 'username',
+  name: 'input-username',
   data () {
     return {
       label: 'Username',
@@ -54,7 +54,6 @@ export default {
       }, this.debounceTimer)
     },
     checkUsername () {
-      console.log('GET /user:')
       if (this.username !== 'abcd') {
         this.usernameClass = 'item valid'
       } else {
