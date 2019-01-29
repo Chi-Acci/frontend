@@ -1,29 +1,20 @@
-# frontend
+# Groovies Frontend
 
-## Project setup
+Poc frontend for the Groovies Project
+
+## Development
+### Prerequisites
+```bash
+$ node --version
+v8.11.4
+$ npm --version 
+5.6.0
 ```
+
+### Get Started
+```bash
 npm install
-```
-
-### Compiles and hot-reloads for development
-```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Ready for dev both on new backend feature or frontend features
