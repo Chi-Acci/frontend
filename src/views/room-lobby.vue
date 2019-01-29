@@ -22,14 +22,21 @@
     </ul>
     <br>
     <div class="container">
-      <div v-if="!resultsAreReady" class="row justify-content-around">
+      <div v-if="showRefreshButton" class="row justify-content-around">
         <div class="col-md-6">
         <lobby-refresh :room-slug="slug"/>
         </div>
       </div>
-      <div v-if="resultsAreReady" class="row justify-content-around">
+      <div v-else-if="showGetResultsBtn" class="row justify-content-around">
         <div class="col-md-6">
           <lobby-results :room-slug="slug"/>
+        </div>
+      </div>
+      <div v-else class="row justify-content-around">
+        <div class="col-md-6">
+          <div class="alert alert-dark" role="alert">
+            {{ resultsAreLoadedMsg }}
+          </div>
         </div>
       </div>
     </div>
@@ -37,7 +44,7 @@
 </template>
 
 <script>
-import { G_USERNAME, G_ROOM_USERS, G_ROOM_RESULTS_READY } from '../store/constants'
+import { G_USERNAME, G_ROOM_USERS, G_ROOM_RESULTS, G_ROOM_RESULTS_READY } from '../store/constants'
 import lobbyRefresh from '../components/lobby-refresh'
 import lobbyResults from '../components/lobby-results'
 
@@ -46,6 +53,11 @@ export default {
   components: {
     lobbyRefresh,
     lobbyResults
+  },
+  data () {
+    return {
+      resultsAreLoadedMsg: 'We have results already!'
+    }
   },
   computed: {
     username () {
@@ -59,6 +71,15 @@ export default {
     },
     resultsAreReady () {
       return this.$store.getters[G_ROOM_RESULTS_READY]
+    },
+    roomResultsAreLoaded () {
+      return !!this.$store.getters[G_ROOM_RESULTS]
+    },
+    showRefreshButton () {
+      return !this.resultsAreReady
+    },
+    showGetResultsBtn () {
+      return this.resultsAreReady && !this.roomResultsAreLoaded
     }
   },
   methods: {
@@ -74,8 +95,11 @@ export default {
 </script>
 
 <style scoped>
-
 li {
   background-color: gray;
+}
+.alert {
+  background-color: gray;
+  color: white;
 }
 </style>

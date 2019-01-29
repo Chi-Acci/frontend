@@ -66,5 +66,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .alert {
+    background-color: gray;
+    color: white;
+  }
 </style>

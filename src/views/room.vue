@@ -24,7 +24,8 @@
 
 <script>
 import { homeRoute, roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '../router/routes'
-import { G_ROOM_IS_LOADED, A_GET_ROOM } from '../store/constants'
+import { G_ROOM_IS_LOADED, G_ROOM_RESULTS, G_ROOM_RESULTS_READY,
+  A_GET_ROOM, A_GET_ROOM_RESULTS } from '../store/constants'
 
 export default {
   name: 'room',
@@ -40,20 +41,42 @@ export default {
     }
   },
   computed: {
+    roomSlug () {
+      return this.$route.params.slug
+    },
     roomIsLoaded () {
       return this.$store.getters[G_ROOM_IS_LOADED]
+    },
+    roomResultsAreLoaded () {
+      return !!this.$store.getters[G_ROOM_RESULTS]
+    },
+    roomResultsAreReady () {
+      return this.$store.getters[G_ROOM_RESULTS_READY]
     }
   },
   methods: {
     getRoomData () {
-      this.$store.dispatch(A_GET_ROOM, this.$route.params.slug)
+      this.$store.dispatch(A_GET_ROOM, this.roomSlug)
+        .then(() => { this.getRoomDataSuccess() })
         .catch(() => { this.getRoomDataError() })
+    },
+    getRoomDataResults () {
+      if (this.roomResultsAreReady) {
+        this.$store.dispatch(A_GET_ROOM_RESULTS, this.roomSlug)
+          .then(() => { this.getRoomResultsSuccess() })
+      }
+    },
+    getRoomDataSuccess () {
+      this.getRoomDataResults()
     },
     getRoomDataError () {
       this.$router.push({ name: this.homeRoute.name })
     },
+    getRoomResultsSuccess () {
+      this.$router.push({ name: roomResultsRoute.name })
+    },
     to (name) {
-      return { name: name, params: { id: this.$route.params.id } }
+      return { name: name }
     },
     tabClass (name) {
       return name === this.$route.name ? 'tab selected' : 'tab not-selected'
@@ -62,6 +85,8 @@ export default {
   created () {
     if (!this.roomIsLoaded) {
       this.getRoomData()
+    } else if (!this.roomResultsAreLoaded) {
+      this.getRoomDataResults()
     }
   }
 }
