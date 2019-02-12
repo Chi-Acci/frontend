@@ -11,10 +11,12 @@ import {
   G_ROOM_UNRATED_MOVIES,
   M_ROOM, M_ROOM_CLEAR, M_ROOM_RESULTS, M_ROOM_RESULTS_CLEAR,
   A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_GET_ROOM_RESULTS,
+  M_WS_CONNECTED, M_WS_CLOSED, M_WS_ONMESSAGE,
+  A_WS_CONNECT, A_WS_CLOSE,
   A_RATE_MOVIE,
   A_SESSION_RESET
 } from './constants'
-import backend from '../backend'
+import { httpBackend, wsBackend } from '../backend'
 
 Vue.use(Vuex)
 
@@ -27,7 +29,11 @@ export default new Vuex.Store({
     username: localStorage.getItem('username') || undefined,
     token: localStorage.getItem('token') || undefined,
     room: undefined,
-    results: undefined
+    results: undefined,
+    // web socket
+    ws: undefined,
+    wsConnected: false,
+    wsUsers: []
   },
   getters: {
     [G_USERNAME]: state => state.username,
@@ -75,11 +81,23 @@ export default new Vuex.Store({
     },
     [M_ROOM_RESULTS_CLEAR]: (state) => {
       state.results = undefined
+    },
+    [M_WS_CONNECTED]: (state, ws) => {
+      state.ws = ws
+      state.wsConnected = true
+    },
+    [M_WS_CLOSED]: (state) => {
+      console.log(M_WS_CLOSED)
+      state.wsConnected = false
+    },
+    [M_WS_ONMESSAGE]: (state, msg) => {
+      console.log(M_WS_ONMESSAGE, msg)
+      state.wsUsers = msg.users
     }
   },
   actions: {
     [A_CREATE_USER]: ({ commit, getters }, name) => new Promise((resolve, reject) => {
-      backend.post(USERS_URL, { name: name })
+      httpBackend.post(USERS_URL, { name: name })
         .then(response => {
           commit(M_TOKEN, response.data.token)
           commit(M_USERNAME, response.data.name)
@@ -91,7 +109,7 @@ export default new Vuex.Store({
         })
     }),
     [A_CREATE_ROOM]: ({ commit }, room) => new Promise((resolve, reject) => {
-      backend.post(ROOMS_URL, room)
+      httpBackend.post(ROOMS_URL, room)
         .then(response => {
           commit(M_ROOM, response.data)
           resolve()
@@ -102,7 +120,7 @@ export default new Vuex.Store({
         })
     }),
     [A_JOIN_ROOM]: ({ commit }, roomSlug) => new Promise((resolve, reject) => {
-      backend.patch(`${ROOMS_URL}/${roomSlug}/join`)
+      httpBackend.patch(`${ROOMS_URL}/${roomSlug}/join`)
         .then(response => {
           commit(M_ROOM, response.data)
           resolve()
@@ -113,7 +131,7 @@ export default new Vuex.Store({
         })
     }),
     [A_GET_ROOM]: ({ commit }, roomSlug) => new Promise((resolve, reject) => {
-      backend.get(`${ROOMS_URL}/${roomSlug}`)
+      httpBackend.get(`${ROOMS_URL}/${roomSlug}`)
         .then(response => {
           commit(M_ROOM, response.data)
           resolve()
@@ -124,7 +142,7 @@ export default new Vuex.Store({
         })
     }),
     [A_GET_ROOM_RESULTS]: ({ commit }, roomSlug) => new Promise((resolve, reject) => {
-      backend.get(`${ROOMS_URL}/${roomSlug}/results`)
+      httpBackend.get(`${ROOMS_URL}/${roomSlug}/results`)
         .then(response => {
           commit(M_ROOM_RESULTS, response.data)
           resolve()
@@ -134,15 +152,20 @@ export default new Vuex.Store({
           reject(err)
         })
     }),
+    [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve) => {
+      const ws = wsBackend(`rooms/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
+      commit(M_WS_CONNECTED, ws)
+      ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, msg.data) }
+      ws.onclose = () => { commit(M_WS_CLOSED) }
+      resolve()
+    }),
     [A_RATE_MOVIE]: ({ commit, getters }, ratingData) => new Promise((resolve, reject) => {
-      backend.post(RATINGS_URL, ratingData)
+      httpBackend.post(RATINGS_URL, ratingData)
         .then(() => {
           getters[G_ROOM_UNRATED_MOVIES].shift()
           resolve()
         })
-        .catch(err => {
-          reject(err)
-        })
+        .catch(err => { reject(err) })
     }),
     [A_SESSION_RESET]: ({ commit }) => new Promise((resolve) => {
       commit(M_TOKEN_CLEAR)

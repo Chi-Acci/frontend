@@ -25,7 +25,7 @@
 <script>
 import { homeRoute, roomLobbyRoute, roomMoviesRoute, roomResultsRoute } from '../router/routes'
 import { G_ROOM_IS_LOADED, G_ROOM_RESULTS, G_ROOM_RESULTS_READY,
-  A_GET_ROOM, A_GET_ROOM_RESULTS } from '../store/constants'
+  A_GET_ROOM, A_WS_CONNECT } from '../store/constants'
 
 export default {
   name: 'room',
@@ -60,14 +60,13 @@ export default {
         .then(() => { this.getRoomDataSuccess() })
         .catch(() => { this.getRoomDataError() })
     },
-    getRoomDataResults () {
-      if (this.roomResultsAreReady) {
-        this.$store.dispatch(A_GET_ROOM_RESULTS, this.roomSlug)
-          .then(() => { this.getRoomResultsSuccess() })
-      }
+    initWebSocket () {
+      this.$store.dispatch(A_WS_CONNECT, this.roomSlug)
+        .then(() => { console.log('SUCCESS') })
+        .catch(() => { console.log('ERROR') })
     },
     getRoomDataSuccess () {
-      this.getRoomDataResults()
+      this.initWebSocket()
     },
     getRoomDataError () {
       this.$router.push({ name: this.homeRoute.name })
@@ -85,8 +84,8 @@ export default {
   created () {
     if (!this.roomIsLoaded) {
       this.getRoomData()
-    } else if (!this.roomResultsAreLoaded) {
-      this.getRoomDataResults()
+    } else {
+      this.initWebSocket()
     }
   }
 }
