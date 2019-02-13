@@ -40,7 +40,7 @@ export default new Vuex.Store({
     [G_TOKEN]: state => state.token,
     [G_ROOM_IS_LOADED]: state => state.room !== undefined,
     [G_ROOM_STATUS]: state => state.room ? state.room.status : '',
-    [G_ROOM_USERS]: state => state.room ? state.room.users : [],
+    [G_ROOM_USERS]: state => state.wsUsers,
     [G_ROOM_MOVIES]: state => state.room ? state.room.movies : [],
     [G_ROOM_UNRATED_MOVIES]: state => {
       return state.room
@@ -155,7 +155,7 @@ export default new Vuex.Store({
     [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve) => {
       const ws = wsBackend(`rooms/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
       commit(M_WS_CONNECTED, ws)
-      ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, msg.data) }
+      ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, JSON.parse(msg.data)) }
       ws.onclose = () => { commit(M_WS_CLOSED) }
       resolve()
     }),
