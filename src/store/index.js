@@ -180,10 +180,11 @@ export default new Vuex.Store({
         })
         .catch(err => { reject(err) })
     }),
-    [A_SESSION_RESET]: ({ commit }) => new Promise((resolve) => {
+    [A_SESSION_RESET]: ({ commit, dispatch }) => new Promise((resolve) => {
       commit(M_TOKEN_CLEAR)
       commit(M_ROOM_CLEAR)
       commit(M_ROOM_RESULTS_CLEAR)
+      dispatch(A_WS_CLOSE)
       resolve()
     })
   }
