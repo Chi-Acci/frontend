@@ -36,7 +36,8 @@ export const M_WS_CLOSED = 'M_WS_CLOSED'
 export const M_WS_ONMESSAGE = 'M_WS_ONMESSAGE'
 export const A_WS_CONNECT = 'A_WS_CONNECT'
 export const A_WS_CLOSE = 'A_WS_CLOSE'
-
+export const A_WS_SEND = 'A_WS_SEND'
+export const A_WS_SEND_UPDATE = 'A_WS_SEND_UPDATE'
 
 // functional
 export const A_SESSION_RESET = 'A_SESSION_RESET'

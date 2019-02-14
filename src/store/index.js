@@ -12,7 +12,7 @@ import {
   M_ROOM, M_ROOM_CLEAR, M_ROOM_RESULTS, M_ROOM_RESULTS_CLEAR,
   A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_GET_ROOM_RESULTS,
   M_WS_CONNECTED, M_WS_CLOSED, M_WS_ONMESSAGE,
-  A_WS_CONNECT, A_WS_CLOSE,
+  A_WS_CONNECT, A_WS_CLOSE, A_WS_SEND, A_WS_SEND_UPDATE,
   A_RATE_MOVIE,
   A_SESSION_RESET
 } from './constants'
@@ -152,13 +152,26 @@ export default new Vuex.Store({
           reject(err)
         })
     }),
-    [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve) => {
+    [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve, reject) => {
       const ws = wsBackend(`rooms/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
-      commit(M_WS_CONNECTED, ws)
-      ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, JSON.parse(msg.data)) }
-      ws.onclose = () => { commit(M_WS_CLOSED) }
-      resolve()
+      ws.onopen = () => {
+        commit(M_WS_CONNECTED, ws)
+        ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, JSON.parse(msg.data)) }
+        ws.onclose = () => { commit(M_WS_CLOSED) }
+        resolve()
+      }
+      ws.onerror = (err) => { reject(err) }
     }),
+    [A_WS_CLOSE]: ({ state }) => {
+      state.ws.close()
+    },
+    [A_WS_SEND]: ({ state }, msg) => {
+      console.log(A_WS_SEND, msg)
+      state.ws.send(JSON.stringify(msg))
+    },
+    [A_WS_SEND_UPDATE]: ({ dispatch }) => {
+      dispatch(A_WS_SEND, { 'type': 'user.update' })
+    },
     [A_RATE_MOVIE]: ({ commit, getters }, ratingData) => new Promise((resolve, reject) => {
       httpBackend.post(RATINGS_URL, ratingData)
         .then(() => {

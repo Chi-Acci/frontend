@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { G_NEXT_MOVIE } from '../store/constants'
+import { G_NEXT_MOVIE, A_WS_SEND_UPDATE } from '../store/constants'
 import movieCard from '../components/movie-card'
 
 export default {
@@ -28,6 +28,16 @@ export default {
   computed: {
     movie () {
       return this.$store.getters[G_NEXT_MOVIE]
+    }
+  },
+  watch: {
+    movie: 'serverUpdate'
+  },
+  methods: {
+    serverUpdate (newValue) {
+      if (newValue === undefined) {
+        this.$store.dispatch(A_WS_SEND_UPDATE)
+      }
     }
   }
 }
