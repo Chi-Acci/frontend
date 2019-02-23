@@ -1,4 +1,4 @@
-import backend from './backend'
+import { httpBackend } from './backend'
 import store from './store'
 import { G_TOKEN } from './store/constants'
 
@@ -10,4 +10,4 @@ function preRequestAuth (config) {
   return config
 }
 
-backend.interceptors.request.use(preRequestAuth)
+httpBackend.interceptors.request.use(preRequestAuth)
