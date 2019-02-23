@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-around">
-      <div class="col-md-7">
+      <div class="col-10">
         <div class="row justify-content-around">
             <button type="button" class="btn btn-outline-dark" v-on:click="rated(1)">1</button>
             <button type="button" class="btn btn-outline-dark" v-on:click="rated(2)">2</button>

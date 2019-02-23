@@ -21,6 +21,7 @@ export const M_ROOM = 'M_ROOM'
 export const M_ROOM_CLEAR = 'M_ROOM_CLEAR'
 export const M_ROOM_RESULTS = 'M_ROOM_RESULTS'
 export const M_ROOM_RESULTS_CLEAR = 'M_ROOM_RESULTS_CLEAR'
+export const G_ROOM_RESULTS_ARE_LOADED = 'G_ROOM_RESULTS_ARE_LOADED'
 
 export const A_CREATE_ROOM = 'A_CREATE_ROOM'
 export const A_JOIN_ROOM = 'A_JOIN_ROOM'
@@ -31,7 +32,7 @@ export const A_GET_ROOM_RESULTS = 'A_GET_ROOM_RESULTS'
 export const A_RATE_MOVIE = 'A_RATE_MOVIE'
 
 // room ws
-export const M_WS_CONNECTED = 'M_WS_CONNECTED'
+export const M_WS_INIT = 'M_WS_INIT'
 export const M_WS_CLOSED = 'M_WS_CLOSED'
 export const M_WS_ONMESSAGE = 'M_WS_ONMESSAGE'
 export const A_WS_CONNECT = 'A_WS_CONNECT'

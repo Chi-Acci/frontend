@@ -7,11 +7,11 @@ import {
   G_ROOM_IS_LOADED, G_ROOM_STATUS,
   G_ROOM_USERS, G_ROOM_MOVIES,
   G_NEXT_MOVIE,
-  G_ROOM_RESULTS_READY, G_ROOM_RESULTS,
+  G_ROOM_RESULTS_READY, G_ROOM_RESULTS, G_ROOM_RESULTS_ARE_LOADED,
   G_ROOM_UNRATED_MOVIES,
   M_ROOM, M_ROOM_CLEAR, M_ROOM_RESULTS, M_ROOM_RESULTS_CLEAR,
   A_CREATE_ROOM, A_JOIN_ROOM, A_GET_ROOM, A_GET_ROOM_RESULTS,
-  M_WS_CONNECTED, M_WS_CLOSED, M_WS_ONMESSAGE,
+  M_WS_INIT, M_WS_CLOSED, M_WS_ONMESSAGE,
   A_WS_CONNECT, A_WS_CLOSE, A_WS_SEND, A_WS_SEND_UPDATE,
   A_RATE_MOVIE,
   A_SESSION_RESET
@@ -32,8 +32,8 @@ export default new Vuex.Store({
     results: undefined,
     // web socket
     ws: undefined,
-    wsConnected: false,
-    wsUsers: []
+    wsUsers: [],
+    wsResults: []
   },
   getters: {
     [G_USERNAME]: state => state.username,
@@ -55,7 +55,8 @@ export default new Vuex.Store({
         ? !getters[G_ROOM_USERS].find(user => user.rated_count < getters[G_ROOM_MOVIES].length)
         : false
     },
-    [G_ROOM_RESULTS]: state => state.results ? state.results.results : undefined
+    [G_ROOM_RESULTS]: (state) => state.wsResults.length > 0 ? state.wsResults : [],
+    [G_ROOM_RESULTS_ARE_LOADED]: (state) => state.wsResults.length > 0
   },
   mutations: {
     [M_USERNAME]: (state, username) => {
@@ -75,24 +76,33 @@ export default new Vuex.Store({
     },
     [M_ROOM_CLEAR]: (state) => {
       state.room = undefined
+      state.wsUsers = []
     },
     [M_ROOM_RESULTS]: (state, results) => {
       state.results = results
     },
     [M_ROOM_RESULTS_CLEAR]: (state) => {
       state.results = undefined
+      state.wsResults = []
     },
-    [M_WS_CONNECTED]: (state, ws) => {
+    [M_WS_INIT]: (state, ws) => {
       state.ws = ws
-      state.wsConnected = true
     },
     [M_WS_CLOSED]: (state) => {
       console.log(M_WS_CLOSED)
       state.wsConnected = false
+      state.wsUsers = []
+      state.wsResults = []
     },
     [M_WS_ONMESSAGE]: (state, msg) => {
+      // different mutations
       console.log(M_WS_ONMESSAGE, msg)
-      state.wsUsers = msg.users
+      if ('users' in msg) {
+        state.wsUsers = msg.users
+      }
+      if ('results' in msg) {
+        state.wsResults = msg.results
+      }
     }
   },
   actions: {
@@ -155,7 +165,7 @@ export default new Vuex.Store({
     [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve, reject) => {
       const ws = wsBackend(`rooms/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
       ws.onopen = () => {
-        commit(M_WS_CONNECTED, ws)
+        commit(M_WS_INIT, ws)
         ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, JSON.parse(msg.data)) }
         ws.onclose = () => { commit(M_WS_CLOSED) }
         resolve()
@@ -163,7 +173,7 @@ export default new Vuex.Store({
       ws.onerror = (err) => { reject(err) }
     }),
     [A_WS_CLOSE]: ({ state }) => {
-      state.ws.close()
+      if (state.ws) { state.ws.close() }
     },
     [A_WS_SEND]: ({ state }, msg) => {
       console.log(A_WS_SEND, msg)

@@ -1,12 +1,12 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div v-if="results" class="col-md-10">
+      <div v-if="resultsAreReady" class="col-10">
         <movie-card :movie="movie" :read-only="true"/>
         <br>
         <div class="container">
           <div class="row justify-content-around">
-            <div class="col-md-7">
+            <div class="col-7">
               <div class="row justify-content-around">
                 <button type="button" class="btn btn-outline-dark" :disabled="prevBtnDisabled" v-on:click="onClickPrev()">{{prevBtnLabel}}</button>
                 {{currentResultIndex + 1}}
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { G_ROOM_RESULTS } from '../store/constants'
+import { G_ROOM_RESULTS, G_ROOM_RESULTS_ARE_LOADED } from '../store/constants'
 import movieCard from '../components/movie-card'
 
 export default {
@@ -41,6 +41,9 @@ export default {
     }
   },
   computed: {
+    resultsAreReady () {
+      return this.$store.getters[G_ROOM_RESULTS_ARE_LOADED]
+    },
     results () {
       return this.$store.getters[G_ROOM_RESULTS]
     },

@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <br>
     <div v-if="roomIsLoaded" class="row justify-content-center">
-      <div class="col-md-6">
+      <div class="col-10">
         <ul class="nav nav-tabs nav-justified">
           <li class="nav-item">
             <router-link :to="to(lobbyRouteName)" :class="tabClass(lobbyRouteName)">{{lobbyTabLabel}}</router-link>

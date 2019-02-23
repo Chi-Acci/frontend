@@ -1,17 +1,17 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-10">
         <layout-navigation/>
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-8">
+      <div class="col-8">
         <router-view/>
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-10">
+      <div class="col-10">
         <layout-footer/>
       </div>
     </div>

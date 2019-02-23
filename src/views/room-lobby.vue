@@ -4,10 +4,10 @@
       <li class="list-group-item" v-for="(user, index) in users" :key="index">
         <div class="container">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
               <span :style="usernameStyle(user.name)">{{ user.name }}</span>
             </div>
-            <div class="col-md-6">
+            <div class="col-6">
               <div class="progress">
                 <div class="progress-bar bg-dark"
                      role="progressbar"
@@ -23,17 +23,17 @@
     <br>
     <div class="container">
       <div v-if="showRefreshButton" class="row justify-content-around">
-        <div class="col-md-6">
+        <div class="col-8">
         <lobby-refresh :room-slug="slug"/>
         </div>
       </div>
       <div v-else-if="showGetResultsBtn" class="row justify-content-around">
-        <div class="col-md-6">
+        <div class="col-8">
           <lobby-results :room-slug="slug"/>
         </div>
       </div>
       <div v-else class="row justify-content-around">
-        <div class="col-md-6">
+        <div class="col-8">
           <div class="alert alert-dark" role="alert">
             {{ resultsAreLoadedMsg }}
           </div>

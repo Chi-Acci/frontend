@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div v-if="movie" class="col-md-10">
+      <div v-if="movie" class="col-10">
         <movie-card :movie="movie" :read-only="false"/>
       </div>
       <div v-else class="alert alert-dark" role="alert">

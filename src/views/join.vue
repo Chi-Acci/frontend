@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="row justify-content-center">
-      <div class="col-md-4">
+      <div class="col-8">
         <username/>
         <br>
         <div class="input-group">
