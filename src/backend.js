@@ -1,10 +1,10 @@
 import axios from 'axios'
 
 export const httpBackend = axios.create({
-  baseURL: `api/`,
+  baseURL: process.env.VUE_APP_API,
   timeout: 1000
 })
 
 export function wsBackend (route) {
-  return new WebSocket(`ws://${location.host}/ws/${route}`)
+  return new WebSocket(`${process.env.VUE_APP_WS}${route}`)
 }
