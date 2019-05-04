@@ -163,7 +163,7 @@ export default new Vuex.Store({
         })
     }),
     [A_WS_CONNECT]: ({ getters, commit }, roomSlug) => new Promise((resolve, reject) => {
-      const ws = wsBackend(`rooms/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
+      const ws = wsBackend(`room/${roomSlug}/?JWT=${getters[G_TOKEN]}`)
       ws.onopen = () => {
         commit(M_WS_INIT, ws)
         ws.onmessage = (msg) => { commit(M_WS_ONMESSAGE, JSON.parse(msg.data)) }
